@@ -49,24 +49,24 @@ pair<int, int> find_endpoints(term& term){
 }
 
 int get_terms_idx(int c, bool is_rev){
-    return 2*c + is_rev + 37;
+    return 2*c + is_rev + 38;
 }
 int get_c(int index){
-    return (index - 37 - 1) / 2;
+    return (index - 38 - 1) / 2;
 }
 int get_rev(int index){
     if(1 <= index && index <= 12) return index;
     if(index % 2 == 1) return index + 1;
     return index - 1;
 }
-term even_terms[37][1 + 12 + 50];
-term odd_terms[37][1 + 12 + 50];
-vector<int> even_graph[37][1 + 12 + 50];
-vector<int> odd_graph[37][1 + 12 + 50];
-int even_graph_coming_cnt[37][1 + 12 + 50];
-int odd_graph_coming_cnt[37][1 + 12 + 50];
+term even_terms[38][1 + 12 + 50];
+term odd_terms[38][1 + 12 + 50];
+vector<int> even_graph[38][1 + 12 + 50];
+vector<int> odd_graph[38][1 + 12 + 50];
+int even_graph_coming_cnt[38][1 + 12 + 50];
+int odd_graph_coming_cnt[38][1 + 12 + 50];
 void init(){
-    for(int res = 12; res <= 36; ++res){
+    for(int res = 12; res <= 37; ++res){
         for(int c = -12; c <= 12; ++c){
             //n: even
             //25(n+1)+c <= 25n+res
@@ -89,11 +89,11 @@ void init(){
             }
         }
     }
-    for(int res = 12; res <= 36; ++res)
+    for(int res = 12; res <= 37; ++res)
         for(int i = 1; i <= 12; ++i)
             even_terms[res][i] = odd_terms[res][i] = {0, i, 0, 0};
 
-    for(int res = 12; res <= 36; ++res){
+    for(int res = 12; res <= 37; ++res){
         for(int i = 1; i < 63; ++i){
             for(int j = 1; j < 63; ++j){
                 if(1 <= i && i <= 12){
@@ -195,7 +195,7 @@ bool can_locate(const bool even, bool prev_parity, term& t1, bool cur_parity, te
 //fomula[][][0] = c
 //fomula[][][1] = 0:상수, 1:순서대로, -1:역순
 //fomula[][][2] = shift(k^2 * s, c) : 0, shift(k^2 * l, c) : 1
-int fomula[4*37][25+25/2+1][4];
+int fomula[4*38][25+25/2+1][4];
 
 bool can_expand_to_nicepair(const bool even, const int res, bool even_pos, int idx, vector<bool>& visited,const vector<pair<int, int> >& perm1, vector<pair<int, int> >& perm2){
     if(perm2.size() == 25 + 12){
@@ -220,8 +220,8 @@ bool can_expand_to_nicepair(const bool even, const int res, bool even_pos, int i
         cout << endl;
         return true;
     }
-    vector<int>(&graph)[37][1 + 12 + 50] = even ? even_graph : odd_graph;
-    term(&terms)[37][1 + 12 + 50] = even ? even_terms : odd_terms;
+    vector<int>(&graph)[38][1 + 12 + 50] = even ? even_graph : odd_graph;
+    term(&terms)[38][1 + 12 + 50] = even ? even_terms : odd_terms;
 
     for(int i = 0; i < graph[res][idx].size(); ++i){
         int next = graph[res][idx][i];
@@ -276,8 +276,8 @@ bool exist_nicepair_fomula(const bool even, const int res, bool even_pos, int id
         return false;
     }
 
-    vector<int>(&graph)[37][1 + 12 + 50] = even ? even_graph : odd_graph;
-    term(&terms)[37][1 + 12 + 50] = even ? even_terms : odd_terms;
+    vector<int>(&graph)[38][1 + 12 + 50] = even ? even_graph : odd_graph;
+    term(&terms)[38][1 + 12 + 50] = even ? even_terms : odd_terms;
 
     //here을 옴으로서 here_rev는 들릴 수 없게 되었다.
     //here_rev로만 갈 수 있는 곳을 못가게 된다면 안된다.
@@ -286,7 +286,7 @@ bool exist_nicepair_fomula(const bool even, const int res, bool even_pos, int id
         for(int j = 0; j < graph[res][rev].size(); ++j){
             --coming_cnt[graph[res][rev][j]];
             if(!visited[graph[res][rev][j]] && !visited[get_rev(graph[res][rev][j])] 
-            && coming_cnt[graph[res][idx][j]] == 0 && coming_cnt[get_rev(graph[res][rev][j])] == 0 && perm1.size() != 36){
+            && coming_cnt[graph[res][rev][j]] == 0 && coming_cnt[get_rev(graph[res][rev][j])] == 0 && perm1.size() != 36){
                 for(int k = 0; k <= j; ++k) ++coming_cnt[graph[res][rev][k]];
                 return false;
             }
@@ -370,4 +370,5 @@ int main(int argc, char** argv){
             exist_nicepair_fomula(is_even_n, res, 1, true, visited, coming_cnt, perm1);
         }
     }
+    printf("here\n");
 }
