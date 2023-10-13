@@ -14,7 +14,7 @@
 #include <cmath>
 #include <fstream>
 #include <sstream>
-using ll = long long;
+using ull = long long;
 using namespace std;
 
 vector<int> S[1992];
