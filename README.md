@@ -43,8 +43,3 @@
 1036 < 63*63 임을 생각하면, 우선 인접한 제곱수들을 base64로 압축할 수 있습니다.  
 이렇게 숫자들을 문자로 바꾼 후, 반복되는 문자열을 사용되지 않는 문자로 압축합니다.  
 zip과 unzip 과정은 각각 **1036-nice-pair-chain-compressor.cpp**, **1036-nice-pair-chain-decompressor.cpp** 에 있고, 압축된 결과는 **compressed-1036-nice-pair-chain.txt** 에 있습니다.  
-
-## 마무리
-**main.cpp** 은 1036-nice-pair-chain, 1036-nice-pair-chain-decompressor, 25-fomula 등으로 이루어져있고, 실행하면  
-![image](https://github.com/solesie/square-sum-problem/assets/33522810/63a6546d-b995-457d-be1d-35583c8b9bc6)
-해결할 수 있습니다.
